@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "active-win": "^6.0.0",
-    "electron-json-storage": "^4.1.8"
+    "electron-json-storage": "^4.1.8",
+    "pouchdb": "^7.1.1"
   }
 }

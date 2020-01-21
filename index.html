@@ -19,6 +19,27 @@
     <div id="stuff"></div>
     <h1>hello world</h1>
     <script> 
+// db.allDocs({
+//   include_docs: true,
+//   attachments: true
+// }).then(function (result) {
+//   console.log(result);
+// }).catch(function (err) {
+//   console.log(err);
+// });
+var ipcRenderer = require('electron').ipcRenderer;
+ipcRenderer.on('store-data', function (event,docs) {
+  for(var key of docs.rows)
+});
+
+
+
+
+
+
+
+
+
     storage.keys(function(error, keys) {
     if (error) throw error;
     for (var key of keys) {
@@ -30,7 +51,7 @@
       function appendData(data) {
               var mainContainer = document.getElementById("stuff");
                   var div = document.createElement("div");
-                  div.innerHTML = 'Title:  '+ data.title + 'Text:  ' + data.text+'Time:  '+data.time;
+                  div.innerHTML = ' Title:  '+ data.title + ' | Text:  ' + data.text+' | Time:  '+data.time+' |<br>';
                   mainContainer.appendChild(div);
           }
       </script>
