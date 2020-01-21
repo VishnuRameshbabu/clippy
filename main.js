@@ -22,10 +22,27 @@ function createWindow(){
             nodeIntegration:true
         }})
     win.loadFile('index.html')
-    win.webContents.openDevTools()
-    win.on('closed',()=>{
-        win=null;
-    })}
+    // win.webContents.openDevTools()
+    win.on('close',(event)=>{
+        event.preventDefault();
+        win.hide();
+    })
+
+    db.allDocs({
+        include_docs: true,
+        attachments: true
+        }).then(function (result) {
+            console.log(result);
+            console.log("OUT");
+            if(win!=null){
+
+                setTimeout(()=>{win.webContents.send('store-data', result);                console.log("IN");
+            }, 500);
+            }
+        }).catch(function (err) {
+        console.log(err);
+        });
+}
 
     app.on('ready', () => {
     // db.info().then(function (info) {
@@ -36,6 +53,9 @@ function createWindow(){
     const contextMenu = Menu.buildFromTemplate([
         {label: 'show stuff',
         click() { createWindow() }
+        },
+        {label: 'quit',
+        click() { app.quit() }
         }
     ])
     tray.setToolTip('clippy')

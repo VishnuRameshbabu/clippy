@@ -16,44 +16,39 @@
    </script>
   </head>
   <body>
-    <div id="stuff"></div>
+    <div id="container"></div>
     <h1>hello world</h1>
     <script> 
-// db.allDocs({
-//   include_docs: true,
-//   attachments: true
-// }).then(function (result) {
-//   console.log(result);
-// }).catch(function (err) {
-//   console.log(err);
-// });
-var ipcRenderer = require('electron').ipcRenderer;
-ipcRenderer.on('store-data', function (event,docs) {
-  for(var key of docs.rows)
-});
+  var ipcRenderer = require('electron').ipcRenderer;
+  ipcRenderer.on('store-data', function (event,docs) {
+    // console.log(docs);
+    // console.log("-----------------------------");
+    let container = document.querySelector("#container");
+    container.innerHTML = "";
+    for(let i=0;i<docs.total_rows;i++){
+      let {doc} = docs.rows[i];
+      console.log(doc);
+      container.innerHTML = container.innerHTML + `${doc.title}|||||| ${doc.time}||||||${doc.text}<br>`;
+    }
+  });
 
+//this code handles the F5/Ctrl+F5/Ctrl+R
+document.onkeydown = checkKeycode
+function checkKeycode(e) {
+    var keycode;
+    if (window.event)
+        keycode = window.event.keyCode;
+    else if (e)
+        keycode = e.which;
 
-
-
-
-
-
-
-
-    storage.keys(function(error, keys) {
-    if (error) throw error;
-    for (var key of keys) {
-        storage.get(key,function(error,data) {
-            appendData(data)
-          })
-      }
-  });    
-      function appendData(data) {
-              var mainContainer = document.getElementById("stuff");
-                  var div = document.createElement("div");
-                  div.innerHTML = ' Title:  '+ data.title + ' | Text:  ' + data.text+' | Time:  '+data.time+' |<br>';
-                  mainContainer.appendChild(div);
-          }
+        if (keycode == 116 ||(e.ctrlKey && keycode == 82)) {
+            if (e.preventDefault)
+            {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }
+}
       </script>
   </body>
 </html>
