@@ -6,6 +6,7 @@ const {
     globalShortcut,
     clipboard
 } = require('electron')
+const os = require('os');
 const PouchDB = require('pouchdb');
 const activeWin = require('active-win');
 var uuid1 = require('uuid1');
@@ -114,7 +115,7 @@ app.on('ready', () => {
                     title: result.title,
                     text: copiedtext,
                     time: new Date(),
-                    device: "Laptop Linux x64"
+                    device: os.hostname()
                 }
                 db.put(data)
                     .then(() => {
