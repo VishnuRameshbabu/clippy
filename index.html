@@ -1,62 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-<script>
-  const copiedtextlist=[];
-    const { remote } = require('electron')
-    const storage = require('electron-json-storage');
-    const{app,clipboard}=require('electron')
-   
-    window.addEventListener('contextmenu', (e) => {
-      e.preventDefault()
-      menu.popup({ window: remote.getCurrentWindow() })
-    }, false)
 
-   </script>
-  </head>
-  <body>
-    <div id="container"></div>
-    <h1>hello world</h1>
-    <script> 
-  var ipcRenderer = require('electron').ipcRenderer;
-  ipcRenderer.on('store-data', function (event,docs) {
-    // console.log(docs);
-    // console.log("-----------------------------");
-    let container = document.querySelector("#container");
-    container.innerHTML = "";
-    for(let i=0;i<docs.total_rows;i++){
-      let {doc} = docs.rows[i];
-      console.log(doc);
-      container.innerHTML = container.innerHTML + `${doc.title}|||||| ${doc.time}||||||${doc.text}<br>`;
-    }
-  });
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="window.css">
+</head>
 
-//this code handles the F5/Ctrl+F5/Ctrl+R
-document.onkeydown = checkKeycode
-function checkKeycode(e) {
-    var keycode;
-    if (window.event)
-        keycode = window.event.keyCode;
-    else if (e)
-        keycode = e.which;
+<body>
 
-        if (keycode == 116 ||(e.ctrlKey && keycode == 82)) {
-            if (e.preventDefault)
-            {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        }
-}
-      </script>
-  </body>
+  <h2>Clippy</h2>
+
+  <div class="tab">
+    <h3 align=center>Devices</h3>
+    <div id="sidebar">
+
+    </div>
+    <!-- <h3 align=center>Settings</h3>
+    <button class="tablinks" onmouseover="openDev(event, 'Set')">Shortcut Key Setup</button> -->
+  </div>
+
+
+  <div id="Dev1" class="tabcontent">
+    <ul id="container">
+    </ul>
+
+  </div>
+
+
+  <div class="clearfix"></div>
+  <script src="window.js"></script>
+
+</body>
+
 </html>
-
-
-
-
-
-
-
-  
