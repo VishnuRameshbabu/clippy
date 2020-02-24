@@ -4,16 +4,19 @@ const {
     Menu,
     BrowserWindow,
     globalShortcut,
-    clipboard
+    clipboard,
+    os
 } = require('electron')
 const os = require('os');
 const PouchDB = require('pouchdb');
 const activeWin = require('active-win');
 var uuid1 = require('uuid1');
+const Os = require('os');
+
+
 const {
     ipcMain
 } = require('electron');
-
 
 
 let tray = null
@@ -85,7 +88,6 @@ app.on('ready', () => {
     }).on('error', function (err) {
         // totally unhandled error (shouldn't happen)
     });
-
     // System tray Configuration
     tray = new Tray('tray_icon_logo.png')
     const contextMenu = Menu.buildFromTemplate([{
